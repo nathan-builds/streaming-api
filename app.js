@@ -4,7 +4,7 @@ const mongoose = require("mongoose");
 const dotenv = require("dotenv");
 dotenv.config({ path: "./config.env" });
 const morgan = require("morgan");
-const cors = require('cors');
+const cors = require("cors");
 
 const DB = process.env.DB.replace("<PASSWORD>", process.env.DB_PASSWORD);
 mongoose.connect(DB).then((con) => {
@@ -17,11 +17,8 @@ let app = express();
 app.use(express.json({ limit: "10kb" }));
 app.use(morgan("dev"));
 app.use(cors());
-
-const port = 5000;
-
 app.use("/netflix", netflixRouter);
 
-app.listen(port, () => {
-  console.log("SERVER LISTENING ON PORT:" + port);
+app.listen(process.env.PORT, () => {
+  console.log("SERVER LISTENING ON PORT:" + process.env.PORT);
 });
